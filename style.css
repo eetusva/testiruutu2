@@ -1,0 +1,315 @@
+:root {
+  --main-width: 840px;
+  --main-height: 566px;
+
+  /* New Bunker/Industrial Horror Theme */
+  --color-bunker-wall: #2c2f33; /* Dark metallic grey */
+  --color-bunker-wall-shadow: #1e2022;
+  --color-metal-panel-light: #4a4e54;
+  --color-metal-panel-dark: #383c40;
+  --color-rust-primary: #7a3e1e;
+  --color-rust-secondary: #5c2f16;
+  --color-title-stencil: #a0a0a0; /* Light grey for stenciled text */
+  --color-title-bg: #222426; /* Very dark metal for title bar */
+  --color-content-viewport-bg: #33363a; /* Darker, slightly transparent for content */
+  --color-content-viewport-border: #5a5e63;
+  --color-warning-yellow: #c2a13a;
+  --color-warning-yellow-dark: #8c742a;
+  --color-text-placeholder: #787c80;
+  --color-rivet: #505458;
+  --color-button-bg: var(--color-metal-panel-dark);
+  --color-button-hover-bg: var(--color-metal-panel-light);
+  --color-button-text: var(--color-title-stencil);
+  --color-item-bg: #282b2e;
+  --color-item-border: var(--color-metal-panel-light);
+  --color-bonus-text: #8bc34a; /* Greenish for bonus */
+  --color-close-button-bg: var(--color-rust-primary);
+  --color-close-button-text: #1a1a1a;
+  --color-close-button-hover-bg: var(--color-rust-secondary);
+
+
+  --font-title: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  --font-special-elite: 'Special Elite', cursive;
+  --font-ui-text: 'Arial', sans-serif; /* Standard readable font for item details */
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0d0e0f; /* Very dark, almost black */
+  margin: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+.shop-ui-wrapper {
+  width: var(--main-width);
+  height: var(--main-height);
+  position: relative;
+  background-color: var(--color-bunker-wall);
+  border: 3px solid var(--color-bunker-wall-shadow);
+  border-radius: 8px; /* Less rounded, more industrial */
+  box-shadow: 0 0 25px rgba(0,0,0,0.7), inset 0 0 15px rgba(0,0,0,0.5);
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%, rgba(255,255,255,0.02)),
+    linear-gradient(-45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%, rgba(255,255,255,0.02)),
+    url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAAYklEQVR42tXQWwoAIAhAU3W4//+1xQWJqGf2M2hHhGNJVacvjOe2k4N7bg+gZ8WvG1xChSRgNBsF8f9L4s03DkDeKRxM0Y77ASz1DNBwBw2g76zFh80o968EMueA3wDEwrcY2mKzAAAAAElFTkSuQmCC');
+  background-size: 10px 10px, 10px 10px, 50px 50px;
+  background-blend-mode: overlay, overlay, normal;
+}
+
+.shop-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: var(--color-close-button-bg);
+  color: var(--color-close-button-text);
+  border: 2px solid var(--color-bunker-wall-shadow);
+  border-radius: 4px; /* Slightly rounded for a 'bolted on' feel */
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 30px; /* Center 'X' */
+  text-align: center;
+  cursor: pointer;
+  z-index: 10; /* Ensure it's on top */
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.4), 1px 1px 3px rgba(0,0,0,0.5);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.shop-close-button:hover {
+  background-color: var(--color-close-button-hover-bg);
+  color: var(--color-title-stencil);
+}
+
+.shop-close-button:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+}
+
+
+.header-debris-layer {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  right: 25px;
+  height: 80px;
+  background-color: var(--color-title-bg);
+  border: 2px solid var(--color-bunker-wall-shadow);
+  border-radius: 4px;
+  z-index: 2;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.6), 0 2px 3px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(255,255,255,0.02) 4px, rgba(255,255,255,0.02) 5px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(255,255,255,0.02) 4px, rgba(255,255,255,0.02) 5px);
+  background-size: 5px 5px;
+}
+
+.title-plate {
+  display: none;
+}
+
+.shop-title {
+  font-family: var(--font-title);
+  font-size: 38px; /* Adjusted for longer title */
+  font-weight: 700;
+  color: var(--color-title-stencil);
+  letter-spacing: 2px; /* Adjusted for longer title */
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.7), 0 0 3px var(--color-rust-primary);
+  margin: 0;
+  padding: 5px 10px;
+  border: 2px dashed var(--color-rust-primary);
+  border-radius: 3px;
+}
+
+.shop-content-window {
+  position: absolute;
+  top: 130px;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  background-color: var(--color-content-viewport-bg);
+  border-radius: 6px;
+  z-index: 1;
+  padding: 15px; /* Reduced padding to fit more items */
+  box-sizing: border-box;
+  border: 3px solid var(--color-content-viewport-border);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
+  background-image:
+    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px),
+    radial-gradient(ellipse at center, rgba(200,200,200,0.03) 0%, transparent 70%);
+  background-size: 20px 20px, 20px 20px, 100% 100%;
+  overflow-y: auto;
+}
+
+.fog-overlay {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.2) 100%),
+              linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 50%);
+  z-index: 5;
+  pointer-events: none;
+  border-radius: 8px;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+.shop-ui-wrapper::before, .shop-ui-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-rivet);
+  border-radius: 50%;
+  z-index: 6;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.6);
+}
+.shop-ui-wrapper::before { top: 10px; left: 10px; }
+.shop-ui-wrapper::after { top: 10px; right: 10px; }
+
+.shop-main-frame::before, .shop-main-frame::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-rivet);
+  border-radius: 50%;
+  z-index: 6;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.6);
+}
+.shop-main-frame::before { bottom: 10px; left: 10px; }
+.shop-main-frame::after { bottom: 10px; right: 10px; }
+
+/* Coinshop Item Styles */
+.coin-items-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two items per row */
+  gap: 15px;
+  height: 100%;
+  align-content: start; /* Align items to the start if not filling all space */
+}
+
+.coin-item {
+  background-color: var(--color-item-bg);
+  border: 2px solid var(--color-item-border);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.coin-item:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4), 0 3px 5px var(--color-warning-yellow-dark);
+  border-color: var(--color-warning-yellow);
+}
+
+.coin-item-title {
+  font-family: var(--font-special-elite);
+  font-size: 1.1em;
+  color: var(--color-title-stencil);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.coin-item-icon {
+  width: 64px; /* Adjusted for typical icon sizes */
+  height: 64px;
+  margin-bottom: 8px;
+  background-color: var(--color-metal-panel-dark);
+  border: 1px solid var(--color-metal-panel-light);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensure image stays within bounds */
+}
+
+.coin-item-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Or 'contain' depending on preference */
+}
+
+.coin-item-amount {
+  font-family: var(--font-title);
+  font-size: 1.4em;
+  color: var(--color-warning-yellow);
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.coin-item-bonus {
+  font-family: var(--font-ui-text);
+  font-size: 0.8em;
+  color: var(--color-bonus-text);
+  margin: -2px 0 5px 0;
+  font-weight: bold;
+}
+
+.coin-item-price {
+  font-family: var(--font-ui-text);
+  font-size: 0.9em;
+  color: var(--color-text-placeholder);
+  margin: 0 0 10px 0;
+}
+
+.coin-item-buy-button {
+  font-family: var(--font-title);
+  font-size: 1em;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  border: 2px outset var(--color-metal-panel-light);
+  padding: 8px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s, border-color 0.2s;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+}
+
+.coin-item-buy-button:hover {
+  background-color: var(--color-button-hover-bg);
+  border-color: var(--color-warning-yellow);
+  color: var(--color-warning-yellow);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+}
+
+.coin-item-buy-button:active {
+  border-style: inset;
+  transform: translateY(1px);
+}
+
+/* Scrollbar styling for content window */
+.shop-content-window::-webkit-scrollbar {
+  width: 10px;
+}
+.shop-content-window::-webkit-scrollbar-track {
+  background: var(--color-bunker-wall-shadow);
+  border-radius: 3px;
+}
+.shop-content-window::-webkit-scrollbar-thumb {
+  background: var(--color-metal-panel-light);
+  border-radius: 3px;
+  border: 1px solid var(--color-bunker-wall-shadow);
+}
+.shop-content-window::-webkit-scrollbar-thumb:hover {
+  background: var(--color-warning-yellow);
+}
